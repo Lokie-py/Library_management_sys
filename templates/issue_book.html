@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Book - Library Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .navbar { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-book"></i> Library Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/view_books">View Books</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/add_book">Add Book</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/issue_book">Issue Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/return_book">Return Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/manage_users">Users</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-hand-holding"></i> Issue Book</h1>
+            <p class="mb-0">Issue a book to a library member</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-hand-holding"></i> Issue Book Form</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label for="user_id" class="form-label">Select User <span class="text-danger">*</span></label>
+                                <select class="form-select" id="user_id" name="user_id" required>
+                                    <option value="">Choose a user...</option>
+                                    {% for user in users %}
+                                    <option value="{{ user.user_id }}">{{ user.name }} ({{ user.email }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="book_id" class="form-label">Select Book <span class="text-danger">*</span></label>
+                                <select class="form-select" id="book_id" name="book_id" required>
+                                    <option value="">Choose a book...</option>
+                                    {% for book in books %}
+                                    <option value="{{ book.book_id }}">
+                                        {{ book.title }} by {{ book.author }} ({{ book.availability }} available)
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="issue_date" class="form-label">Issue Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="issue_date" name="issue_date" required value="{{ today }}">
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-check"></i> Issue Book
+                                </button>
+                                <a href="/view_issued_books" class="btn btn-outline-secondary">
+                                    <i class="fas fa-list"></i> View Issued Books
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow mb-3">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-info-circle"></i> Instructions</h5>
+                    </div>
+                    <div class="card-body">
+                        <ol>
+                            <li class="mb-2">Select the user who wants to borrow the book</li>
+                            <li class="mb-2">Choose an available book from the dropdown</li>
+                            <li class="mb-2">Select the issue date (today's date by default)</li>
+                            <li class="mb-2">Click "Issue Book" to complete the transaction</li>
+                        </ol>
+                        <div class="alert alert-warning mt-3">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            <strong>Note:</strong> Only books with available copies will appear in the list.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Quick Stats</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-6 mb-3">
+                                <h3 class="text-primary">{{ books|length }}</h3>
+                                <small class="text-muted">Available Books</small>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h3 class="text-success">{{ users|length }}</h3>
+                                <small class="text-muted">Active Users</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Set today's date as default
+        document.getElementById('issue_date').valueAsDate = new Date();
+    </script>
+</body>
+</html>

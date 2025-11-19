@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .feature-card {
+            transition: transform 0.3s;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-book"></i> Library Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view_books">View Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_book">Add Book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/issue_book">Issue Book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/return_book">Return Book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manage_users">Users</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">
+                <i class="fas fa-book-reader"></i> Library Management System
+            </h1>
+            <p class="lead mb-5">Manage your library efficiently with our comprehensive system</p>
+            <a href="/view_books" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-list"></i> Browse Books
+            </a>
+            <a href="/add_book" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-plus"></i> Add New Book
+            </a>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container my-5 py-5">
+        <h2 class="text-center mb-5">System Features</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h5 class="card-title">Book Management</h5>
+                        <p class="card-text">Add, edit, delete and view all books in your library. Track availability and manage inventory.</p>
+                        <a href="/view_books" class="btn btn-primary">View Books</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-success mb-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="card-title">User Management</h5>
+                        <p class="card-text">Manage library members, add new users, and maintain user records efficiently.</p>
+                        <a href="/manage_users" class="btn btn-success">Manage Users</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-warning mb-3">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h5 class="card-title">Issue & Return</h5>
+                        <p class="card-text">Issue books to members and process returns. Track due dates and availability in real-time.</p>
+                        <a href="/issue_book" class="btn btn-warning">Issue Book</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="display-5 text-primary mb-2">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="fw-bold">Books</h3>
+                    <p class="text-muted">Manage Collection</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="display-5 text-success mb-2">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="fw-bold">Members</h3>
+                    <p class="text-muted">Active Users</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="display-5 text-warning mb-2">
+                        <i class="fas fa-hand-holding"></i>
+                    </div>
+                    <h3 class="fw-bold">Issued</h3>
+                    <p class="text-muted">Currently Borrowed</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="display-5 text-info mb-2">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3 class="fw-bold">Returns</h3>
+                    <p class="text-muted">Books Returned</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Library Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<!-- http://localhost:5000/ -->

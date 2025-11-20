@@ -92,11 +92,11 @@ The application will start on `http://localhost:5000`
 
 ### Homepage
 ![image alt](https://github.com/Lokie-py/Library_management_sys/blob/3e2cc2164b0aba36ed7e60ebc75e5f6ed1910a9e/Screenshot%202025-11-20%20220232.png)
-Welcome banner with gradient background
-Navigation bar with links to all modules
-Feature cards showcasing system capabilities
-Statistics section with library metrics
-Responsive design for all devices
+-Welcome banner with gradient background
+-Navigation bar with links to all modules
+-Feature cards showcasing system capabilities
+-Statistics section with library metrics
+-Responsive design for all devices
 
 ### Managing Books
 1. **View Books**: Click "View Books" to see all books in the library
@@ -252,4 +252,5 @@ Created as a mini-project for learning web development with Flask and MySQL.
 
 
 **Happy Coding! 📚**
+
 

@@ -1,259 +1,165 @@
 # Library Management System
 
-A comprehensive web-based Library Management System built with Flask, MySQL, HTML, CSS (Bootstrap), and JavaScript.
+A simple web-based Library Management System built with Flask, MySQL, HTML (Bootstrap), and JavaScript. This project demonstrates basic CRUD operations for books and users, issuing/returning books, and transaction history.
+
+Table of Contents
+- Features
+- Demo / Screenshots
+- Prerequisites
+- Installation
+  - 1. Clone
+  - 2. Create virtual environment
+  - 3. Install dependencies
+  - 4. Configure database (recommended via .env)
+  - 5. Create database schema
+  - 6. Run the app
+- Usage
+- Database schema (overview)
+- Security notes
+- Troubleshooting
+- Future enhancements
+- Contributing & License
+- Author
 
 ## Features
+- Book management: add, edit, delete, view
+- User management: register and manage members
+- Issue / return books with availability tracking
+- Transaction history: view issued and returned books
+- Responsive UI using Bootstrap 5
 
-- **Book Management**: Add, edit, delete, and view books
-- **User Management**: Register and manage library members
-- **Issue Books**: Issue books to users with availability tracking
-- **Return Books**: Process book returns and update availability
-- **Transaction History**: View all issued and returned books
-- **Responsive Design**: Mobile-friendly interface using Bootstrap 5
+## Demo / Screenshots
+Below are the screenshots you previously uploaded — I kept the original links so the images remain the same in the README.
 
-## Project Structure
+Homepage
 
-```
-/library_project
-  ├── /templates
-  │   ├── index.html
-  │   ├── view_books.html
-  │   ├── add_book.html
-  │   ├── edit_book.html
-  │   ├── issue_book.html
-  │   ├── return_book.html
-  │   ├── manage_users.html
-  │   └── view_issued_books.html
-  ├── /static (optional - for custom CSS/JS/images)
-  ├── app.py
-  ├── db.py
-  ├── requirements.txt
-  ├── schema.sql
-  └── README.md
-```
+![Homepage](https://github.com/Lokie-py/Library_management_sys/blob/3e2cc2164b0aba36ed7e60ebc75e5f6ed1910a9e/Screenshot%202025-11-20%20220232.png)
+
+Managing Books
+
+![View Books](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220254.png)
+
+Managing Users
+
+![Manage Users](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220320.png)
+
+Issuing Books
+
+![Issue Book](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220344.png)
+
+Returning Books
+
+![Return Book](https://github.com/Lokie-py/Library_management_sys/blob/e5239bc2856fc60ca7f9f3bfce9d7c49f8f3b082/Screenshot%202025-11-22%20235956.png)
 
 ## Prerequisites
+- Python 3.8+
+- MySQL 8+
+- pip
+- (Optional) virtualenv or venv
 
-- Python 3.8 or higher
-- MySQL 8.0 or higher
-- pip (Python package manager)
+## Installation
 
-## Installation & Setup
-
-### 1. Clone or Download the Project
-
+### 1. Clone
 ```bash
-# Create project directory
-mkdir library_project
-cd library_project
+git clone https://github.com/Lokie-py/Library_management_sys.git
+cd Library_management_sys
 ```
 
-### 2. Install Python Dependencies
+### 2. Create virtual environment
+```bash
+python -m venv .venv
+# On macOS / Linux
+source .venv/bin/activate
+# On Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+```
 
+### 3. Install dependencies
+Make sure requirements.txt exists. Example requirements (add these to requirements.txt):
+```
+Flask>=2.0
+mysql-connector-python>=8.0
+python-dotenv>=1.0
+```
+Then:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Setup MySQL Database
+### 4. Configure database (recommended via .env)
+Create a `.env` file in project root (do NOT commit it):
+```
+FLASK_ENV=development
+FLASK_APP=app.py
+SECRET_KEY=replace-with-a-random-string
+DB_HOST=localhost
+DB_NAME=library_db
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+```
+Update `db.py` to read credentials from environment variables (use python-dotenv or os.environ).
 
-**Option A: Using MySQL Command Line**
+### 5. Create database schema
+Import the schema:
 ```bash
 mysql -u root -p < schema.sql
+# or open schema.sql in MySQL Workbench and execute
 ```
+Confirm a database named `library_db` or change DB_NAME in .env and schema.sql to match your preference.
 
-**Option B: Using MySQL Workbench**
-1. Open MySQL Workbench
-2. Connect to your MySQL server
-3. Open `schema.sql` file
-4. Execute the SQL script
-
-### 4. Configure Database Connection
-
-Edit `db.py` and update the MySQL credentials:
-
-```python
-connection = mysql.connector.connect(
-    host='localhost',
-    database='library_db',
-    user='your_mysql_username',    # Change this
-    password='your_mysql_password'  # Change this
-)
-```
-
-### 5. Run the Application
-
+### 6. Run the app
+Option A — direct:
 ```bash
 python app.py
 ```
+Option B — using flask:
+```bash
+export FLASK_APP=app.py
+export FLASK_ENV=development
+flask run --port 5000
+```
+Open http://localhost:5000
 
-The application will start on `http://localhost:5000`
+## Usage
+- Visit the navigation links to add/view books and users
+- Issue a book only when availability > 0; returning a book increases availability
+- Transaction page shows issued/returned history
 
-## Usage Guide
+## Database schema (overview)
+- books (book_id PK, title, author, genre, year, availability INT)
+- users (user_id PK, name, email UNIQUE, password)
+- issued_books (issue_id PK, user_id FK, book_id FK, issue_date, return_date, status)
 
-### Homepage
-![image alt](https://github.com/Lokie-py/Library_management_sys/blob/3e2cc2164b0aba36ed7e60ebc75e5f6ed1910a9e/Screenshot%202025-11-20%20220232.png)
-1. Welcome banner with gradient background
-2. Navigation bar with links to all modules
-3. Feature cards showcasing system capabilities
-4. Statistics section with library metrics
-5. Responsive design for all devices
+Add explicit SQL types in schema.sql (INT, VARCHAR, DATE, etc.) and foreign key constraints for referential integrity.
 
-### Managing Books
-![image alt](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220254.png)
-1. **View Books**: Click "View Books" to see all books in the library
-2. **Add Book**: Click "Add Book" and fill in the form
-3. **Edit Book**: Click the edit icon (pencil) in the books table
-4. **Delete Book**: Click the delete icon (trash) in the books table
-
-### Managing Users
-![image alt](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220320.png)
-1. Go to "Users" section
-2. Fill in the form to add new library members
-3. View all registered users in the table
-
-### Issuing Books
-![image alt](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220344.png)
-1. Go to "Issue Book" section
-2. Select a user from the dropdown
-3. Select an available book
-4. Choose the issue date
-5. Click "Issue Book"
-
-### Returning Books
-![image alt](https://github.com/Lokie-py/Library_management_sys/blob/e5239bc2856fc60ca7f9f3bfce9d7c49f8f3b082/Screenshot%202025-11-22%20235956.png)
-1. Go to "Return Book" section
-2. Select the issued book from the dropdown
-3. Choose the return date
-4. Click "Process Return"
-
-
-## Database Schema
-
-### Books Table
-- `book_id` (Primary Key)
-- `title`
-- `author`
-- `genre`
-- `year`
-- `availability` (number of copies)
-
-### Users Table
-- `user_id` (Primary Key)
-- `name`
-- `email` (Unique)
-- `password`
-
-### Issued Books Table
-- `issue_id` (Primary Key)
-- `user_id` (Foreign Key)
-- `book_id` (Foreign Key)
-- `issue_date`
-- `return_date`
-- `status` (issued/returned)
-
-## Features in Detail
-
-### CRUD Operations
-
-**Books:**
-- CREATE: Add new books with title, author, genre, year, availability
-- READ: View all books with their details
-- UPDATE: Edit book information
-- DELETE: Remove books from the system
-
-**Users:**
-- CREATE: Register new library members
-- READ: View all registered users
-- DELETE: Remove users from the system
-
-**Transactions:**
-- CREATE: Issue books to users
-- READ: View all transactions (issued and returned)
-- UPDATE: Return issued books
-
-### Validation & Error Handling
-- Form validation for required fields
-- Email uniqueness check for users
-- Book availability check before issuing
-- Success/error flash messages
-- Confirmation dialogs for delete operations
-
-### Responsive Design
-- Mobile-friendly navigation
-- Responsive tables
-- Bootstrap 5 styling
-- Font Awesome icons
-- Modern gradient design
+## Security notes
+- Never store plaintext passwords. Use a password hashing library (bcrypt or passlib).
+- Use environment variables for secrets and DB credentials.
+- Use prepared statements or ORM (SQLAlchemy) to avoid SQL injection.
+- Enable CSRF protection for forms (Flask-WTF or other middleware) before production.
+- Use HTTPS in production, ensure SECRET_KEY is strong and private.
 
 ## Troubleshooting
+- Database connection error: check MySQL is running and credentials in `.env`.
+- Module not found: ensure venv is activated and dependencies installed.
+- Port in use: run app on a different port (e.g., 5001).
 
-### Database Connection Error
-- Verify MySQL is running: `sudo service mysql status`
-- Check credentials in `db.py`
-- Ensure database exists: `SHOW DATABASES;`
+## Future enhancements
+- Authentication and role-based access (admin vs member)
+- Password hashing + login system
+- Search and filters, due date reminders, email notifications
+- Dockerfile / docker-compose for easy setup
+- Tests and CI workflow
 
-### Port Already in Use
-- Change the port in `app.py`:
-```python
-app.run(debug=True, port=5001)
-```
+## Contributing & License
+If you want contributions:
+1. Fork the repo
+2. Create a feature branch
+3. Open a PR with a clear description
 
-### Module Not Found Error
-- Reinstall dependencies: `pip install -r requirements.txt`
-
-## Security Notes
-
-**Important for Production:**
-1. Change the `secret_key` in `app.py` to a random string
-2. Use environment variables for database credentials
-3. Implement password hashing (e.g., bcrypt)
-4. Add user authentication and authorization
-5. Enable HTTPS
-6. Sanitize user inputs to prevent SQL injection
-7. Implement CSRF protection
-
-## Future Enhancements
-
-- User authentication and login system
-- Password hashing and security
-- Search and filter functionality
-- Due date tracking and overdue notifications
-- Fine calculation system
-- Export data to CSV/PDF
-- Book categories and tags
-- Admin dashboard with statistics
-- Email notifications
-- Book reservation system
-
-## Technologies Used
-
-- **Backend**: Python, Flask
-- **Database**: MySQL
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Framework**: Bootstrap 5
-- **Icons**: Font Awesome 6
-- **Database Connector**: mysql-connector-python
-
-## License
-
-This project is open-source and available for educational purposes.
-
-## Support
-
-For issues or questions, please check:
-- MySQL documentation: https://dev.mysql.com/doc/
-- Flask documentation: https://flask.palletsprojects.com/
-- Bootstrap documentation: https://getbootstrap.com/
+Add a LICENSE (e.g., MIT) to make the project’s license explicit.
 
 ## Author
-
 Created as a mini-project for learning web development with Flask and MySQL.
 
----
-
-
-**Happy Coding! 📚**
-
-
-
-
+Happy Coding!

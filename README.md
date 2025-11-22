@@ -92,24 +92,27 @@ The application will start on `http://localhost:5000`
 
 ### Homepage
 ![image alt](https://github.com/Lokie-py/Library_management_sys/blob/3e2cc2164b0aba36ed7e60ebc75e5f6ed1910a9e/Screenshot%202025-11-20%20220232.png)
--Welcome banner with gradient background
--Navigation bar with links to all modules
--Feature cards showcasing system capabilities
--Statistics section with library metrics
--Responsive design for all devices
+1. Welcome banner with gradient background
+2. Navigation bar with links to all modules
+3. Feature cards showcasing system capabilities
+4. Statistics section with library metrics
+5. Responsive design for all devices
 
 ### Managing Books
+![image alt](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220254.png)
 1. **View Books**: Click "View Books" to see all books in the library
 2. **Add Book**: Click "Add Book" and fill in the form
 3. **Edit Book**: Click the edit icon (pencil) in the books table
 4. **Delete Book**: Click the delete icon (trash) in the books table
 
 ### Managing Users
+![image alt](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220320.png)
 1. Go to "Users" section
 2. Fill in the form to add new library members
 3. View all registered users in the table
 
 ### Issuing Books
+![image alt](https://github.com/Lokie-py/Library_management_sys/blob/7ffcb0975f26fdd11a8e0180c250e8c13b20b4ca/Screenshot%202025-11-20%20220344.png)
 1. Go to "Issue Book" section
 2. Select a user from the dropdown
 3. Select an available book
@@ -117,14 +120,12 @@ The application will start on `http://localhost:5000`
 5. Click "Issue Book"
 
 ### Returning Books
+![image alt](https://github.com/Lokie-py/Library_management_sys/blob/e5239bc2856fc60ca7f9f3bfce9d7c49f8f3b082/Screenshot%202025-11-22%20235956.png)
 1. Go to "Return Book" section
 2. Select the issued book from the dropdown
 3. Choose the return date
 4. Click "Process Return"
 
-### Viewing Transactions
-- After issuing or returning books, you'll be redirected to the transaction history
-- You can also access it directly from the Issue/Return pages
 
 ## Database Schema
 
@@ -252,6 +253,7 @@ Created as a mini-project for learning web development with Flask and MySQL.
 
 
 **Happy Coding! 📚**
+
 
 
 
